@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>مدیریت قطعات آموزشی موسیقی</title>
+<title>قطعات آموزشی موسیقی</title>
 
 <style>
 *{
@@ -21,7 +21,7 @@ body{
 header{
     background:#202938;
     color:white;
-    padding:20px;
+    padding:22px 15px;
     text-align:center;
 }
 
@@ -31,8 +31,8 @@ header h1{
 }
 
 .container{
-    max-width:1000px;
-    margin:30px auto;
+    max-width:900px;
+    margin:25px auto;
     padding:0 15px;
 }
 
@@ -40,7 +40,7 @@ header h1{
     background:white;
     border-radius:14px;
     padding:20px;
-    margin-bottom:20px;
+    margin-bottom:18px;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
@@ -49,81 +49,56 @@ header h1{
     font-size:19px;
 }
 
-button{
-    border:0;
-    border-radius:8px;
-    padding:11px 18px;
-    cursor:pointer;
-    font-size:14px;
-}
-
-.primary{
-    background:#2563eb;
-    color:white;
-}
-
-.success{
-    background:#16a34a;
-    color:white;
-}
-
-.danger{
-    background:#dc2626;
-    color:white;
-}
-
-input,textarea,select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    margin-top:7px;
-    margin-bottom:15px;
-    font-family:inherit;
-}
-
-textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
-
-.item{
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    padding:15px;
-    margin-top:12px;
-}
-
-.item-title{
-    font-weight:bold;
-    font-size:16px;
-}
-
-.actions{
-    margin-top:12px;
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.file-box{
-    border:2px dashed #ccc;
-    border-radius:10px;
-    padding:20px;
+.loading{
     text-align:center;
-    margin-bottom:15px;
+    padding:20px;
+    color:#666;
 }
 
-@media(max-width:700px){
-    .row{
-        grid-template-columns:1fr;
-    }
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:15px;
+    border-radius:10px;
+}
+
+.collection{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:16px;
+    margin-top:12px;
+}
+
+.collection-title{
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.piece{
+    background:#f8fafc;
+    border-radius:10px;
+    padding:14px;
+    margin-top:10px;
+}
+
+.piece-title{
+    font-weight:bold;
+}
+
+.description{
+    color:#555;
+    margin-top:8px;
+    line-height:1.8;
+}
+
+.badge{
+    display:inline-block;
+    background:#e5e7eb;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -131,7 +106,7 @@ textarea{
 <body>
 
 <header>
-    <h1>🎵 مدیریت قطعات آموزشی موسیقی</h1>
+    <h1>🎵 قطعات آموزشی موسیقی</h1>
 </header>
 
 <div class="container">
@@ -139,109 +114,200 @@ textarea{
     <div class="card">
         <h2>📚 دسته‌های آموزشی</h2>
 
-        <div class="item">
-            <div class="item-title">
-                کوک دو سل دو
-            </div>
-
-            <div class="actions">
-                <button class="primary">
-                    مشاهده قطعات
-                </button>
-
-                <button class="success">
-                    + افزودن قطعه
-                </button>
+        <div id="collections">
+            <div class="loading">
+                در حال دریافت اطلاعات...
             </div>
         </div>
-    </div>
-
-
-    <div class="card">
-
-        <h2>➕ افزودن قطعه آموزشی</h2>
-
-        <label>
-            عنوان قطعه
-        </label>
-
-        <input
-            type="text"
-            placeholder="مثلاً: کوک دو سل دو دو"
-        >
-
-        <label>
-            توضیحات
-        </label>
-
-        <textarea
-            placeholder="توضیحات مربوط به این قطعه..."
-        ></textarea>
-
-        <div class="file-box">
-
-            🎵 فایل صوتی
-
-            <br><br>
-
-            <input
-                type="file"
-                accept=".mp3,.wav"
-            >
-
-        </div>
-
-        <div class="file-box">
-
-            📄 فایل PDF
-
-            <br><br>
-
-            <input
-                type="file"
-                accept=".pdf"
-            >
-
-        </div>
-
-        <button class="success">
-            ذخیره قطعه
-        </button>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>🎼 قطعات موجود</h2>
-
-        <div class="item">
-
-            <div class="item-title">
-                کوک دو سل دو دو
-            </div>
-
-            <p>
-                توضیحات قطعه آموزشی
-            </p>
-
-            <div class="actions">
-
-                <button class="primary">
-                    ✏️ ویرایش
-                </button>
-
-                <button class="danger">
-                    🗑️ حذف
-                </button>
-
-            </div>
-
-        </div>
-
     </div>
 
 </div>
+
+<script>
+
+const API =
+"https://music-api.dehghaniweb.workers.dev";
+
+async function loadCollections(){
+
+    const container =
+        document.getElementById("collections");
+
+    try{
+
+        const response =
+            await fetch(API + "/api/collections");
+
+        const result =
+            await response.json();
+
+        if(!result.ok){
+
+            throw new Error(
+                "دریافت اطلاعات ناموفق بود"
+            );
+
+        }
+
+        container.innerHTML = "";
+
+        if(!result.data || result.data.length === 0){
+
+            container.innerHTML =
+                "<div class='loading'>هنوز دسته‌ای ثبت نشده است.</div>";
+
+            return;
+        }
+
+        for(const collection of result.data){
+
+            const collectionBox =
+                document.createElement("div");
+
+            collectionBox.className =
+                "collection";
+
+            collectionBox.innerHTML = `
+                <div class="collection-title">
+                    📁 ${escapeHtml(collection.title)}
+                </div>
+
+                <div id="pieces-${collection.id}">
+                    <div class="loading">
+                        در حال دریافت قطعات...
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(collectionBox);
+
+            loadPieces(
+                collection.id,
+                document.getElementById(
+                    "pieces-" + collection.id
+                )
+            );
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                ❌ خطا در ارتباط با سرور
+                <br><br>
+                ${escapeHtml(error.message)}
+            </div>
+        `;
+    }
+}
+
+
+async function loadPieces(
+    collectionId,
+    container
+){
+
+    try{
+
+        /*
+         * فعلاً از API قطعه آزمایشی شماره 1
+         * استفاده می‌کنیم.
+         *
+         * در مرحله بعد Worker را طوری
+         * تکمیل می‌کنیم که تمام قطعات
+         * یک دسته را برگرداند.
+         */
+
+        const response =
+            await fetch(
+                API + "/api/pieces/1"
+            );
+
+        const result =
+            await response.json();
+
+        if(
+            !result.ok ||
+            !result.data
+        ){
+
+            container.innerHTML =
+                "<div class='loading'>قطعه‌ای وجود ندارد.</div>";
+
+            return;
+        }
+
+        const piece = result.data;
+
+        /*
+         * فقط اگر قطعه متعلق به همین دسته باشد
+         * نمایش داده می‌شود.
+         */
+
+        if(piece.collection_id !== collectionId){
+
+            container.innerHTML =
+                "<div class='loading'>قطعه‌ای وجود ندارد.</div>";
+
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="piece">
+
+                <div class="piece-title">
+                    🎼 ${escapeHtml(piece.title)}
+                </div>
+
+                <div class="description">
+                    ${escapeHtml(
+                        piece.description || "بدون توضیحات"
+                    )}
+                </div>
+
+                <div class="badge">
+                    🎵 فایل صوتی:
+                    ${piece.audio_files.length}
+                </div>
+
+                <div class="badge">
+                    📄 فایل PDF:
+                    ${piece.documents.length}
+                </div>
+
+            </div>
+        `;
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                خطا در دریافت قطعات
+            </div>
+        `;
+    }
+}
+
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text ?? "";
+
+    return div.innerHTML;
+}
+
+
+loadCollections();
+
+</script>
 
 </body>
 </html>
