@@ -7,104 +7,206 @@
   <title>قطعات آموزشی موسیقی</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Tahoma, Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f4f6f8;
       color: #222;
     }
 
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
     .container {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 1000px;
+      margin: auto;
       padding: 20px;
     }
 
-    h1 {
+    header {
+      background: white;
+      border-radius: 16px;
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.08);
       text-align: center;
-      margin-bottom: 10px;
     }
 
-    .subtitle {
-      text-align: center;
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    header p {
+      margin: 0;
       color: #666;
-      margin-bottom: 25px;
+    }
+
+    .top-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 17px;
+      font-size: 14px;
+      background: #1976d2;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: .9;
+    }
+
+    .btn.secondary {
+      background: #607d8b;
+    }
+
+    .btn.success {
+      background: #2e7d32;
+    }
+
+    .btn.danger {
+      background: #c62828;
+    }
+
+    .btn.warning {
+      background: #ef6c00;
+    }
+
+    .btn.light {
+      background: #eceff1;
+      color: #222;
     }
 
     .status {
-      padding: 12px;
-      border-radius: 10px;
       background: #e8f5e9;
       color: #2e7d32;
+      border-radius: 10px;
+      padding: 12px;
       margin-bottom: 20px;
       text-align: center;
     }
 
-    .error {
+    .status.error {
       background: #ffebee;
       color: #c62828;
     }
 
-    .collection {
+    .section {
       background: white;
-      border-radius: 14px;
-      padding: 18px;
+      border-radius: 16px;
+      padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 15px rgba(0,0,0,.07);
     }
 
-    .collection-title {
+    .section-title {
       font-size: 21px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 18px;
     }
 
-    .collection-description {
-      color: #666;
+    .collection {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
       margin-bottom: 15px;
     }
 
-    .pieces-title {
-      font-size: 16px;
+    .collection-title {
+      font-size: 19px;
       font-weight: bold;
-      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #666;
+      margin-top: 7px;
+      line-height: 1.8;
+    }
+
+    .pieces {
+      margin-top: 15px;
     }
 
     .piece {
+      background: #fafafa;
       border: 1px solid #ddd;
       border-radius: 10px;
-      padding: 14px;
       margin-top: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-      background: #fafafa;
+      overflow: hidden;
     }
 
-    .piece:hover {
-      background: #f0f4ff;
-      transform: translateY(-1px);
+    .piece-header {
+      padding: 14px;
+      cursor: pointer;
+    }
+
+    .piece-header:hover {
+      background: #f1f5f9;
     }
 
     .piece-title {
-      font-size: 17px;
       font-weight: bold;
+      font-size: 17px;
     }
 
-    .piece-description {
-      color: #666;
-      margin-top: 6px;
-      font-size: 14px;
-    }
-
-    .details {
+    .piece-details {
       display: none;
-      margin-top: 12px;
-      padding-top: 12px;
       border-top: 1px solid #ddd;
+      padding: 15px;
+      background: white;
     }
 
-    .details.show {
+    .piece-details.show {
       display: block;
+    }
+
+    .file-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 10px;
+      background: #fafafa;
+    }
+
+    .file-title {
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .file-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .empty {
+      color: #888;
+      padding: 10px 0;
     }
 
     .loading {
@@ -113,24 +215,143 @@
       padding: 20px;
     }
 
-    .empty {
-      color: #888;
-      padding: 10px 0;
+    .hidden {
+      display: none !important;
     }
 
-    .item {
-      background: #f8f8f8;
-      padding: 10px;
+    .admin-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.07);
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
       border-radius: 8px;
-      margin-top: 8px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .admin-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #777;
+    }
+
+    .login-box {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow: auto;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+    }
+
+    .close {
+      border: 0;
+      background: #eee;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 18px;
     }
 
     .footer {
       text-align: center;
       color: #999;
       font-size: 13px;
-      margin-top: 30px;
-      padding-bottom: 20px;
+      padding: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .container {
+        padding: 12px;
+      }
+
+      header h1 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
@@ -139,21 +360,177 @@
 
 <div class="container">
 
-  <h1>🎵 قطعات آموزشی موسیقی</h1>
+  <header>
 
-  <div class="subtitle">
-    آموزش و دسترسی به قطعات موسیقی
-  </div>
+    <h1>🎵 قطعات آموزشی موسیقی</h1>
 
-  <div id="status" class="status">
+    <p>
+      آموزش، قطعات صوتی و فایل‌های آموزشی
+    </p>
+
+    <div class="top-buttons">
+
+      <button
+        class="btn"
+        onclick="showPublic()"
+      >
+        🏠 صفحه اصلی
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="showAdmin()"
+      >
+        🔐 مدیریت
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <div
+    id="status"
+    class="status"
+  >
     ⏳ در حال اتصال به سرور...
   </div>
 
-  <div id="collections">
-    <div class="loading">
-      در حال دریافت اطلاعات...
+
+  <!-- =====================================================
+       PUBLIC
+  ====================================================== -->
+
+  <div id="publicPage">
+
+    <div class="section">
+
+      <div class="section-title">
+        📚 دسته‌های آموزشی
+      </div>
+
+      <div id="collections">
+        <div class="loading">
+          در حال دریافت اطلاعات...
+        </div>
+      </div>
+
     </div>
+
   </div>
+
+
+  <!-- =====================================================
+       ADMIN LOGIN
+  ====================================================== -->
+
+  <div
+    id="adminLogin"
+    class="section hidden"
+  >
+
+    <div class="login-box">
+
+      <div class="section-title">
+        🔐 ورود به مدیریت
+      </div>
+
+      <div class="field">
+
+        <label>
+          کلید مدیریت
+        </label>
+
+        <input
+          id="adminKeyInput"
+          type="password"
+          placeholder="ADMIN_KEY"
+        >
+
+      </div>
+
+      <button
+        class="btn success"
+        onclick="loginAdmin()"
+      >
+        ورود
+      </button>
+
+      <p class="small">
+        کلید مدیریت فقط در همین مرورگر استفاده می‌شود.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       ADMIN PANEL
+  ====================================================== -->
+
+  <div
+    id="adminPanel"
+    class="hidden"
+  >
+
+    <div class="admin-box">
+
+      <div class="section-title">
+        ⚙️ پنل مدیریت
+      </div>
+
+      <div class="top-buttons">
+
+        <button
+          class="btn success"
+          onclick="openCollectionModal()"
+        >
+          ➕ افزودن دسته
+        </button>
+
+        <button
+          class="btn"
+          onclick="openPieceModal()"
+        >
+          ➕ افزودن قطعه
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="loadAdminData()"
+        >
+          🔄 بروزرسانی
+        </button>
+
+        <button
+          class="btn danger"
+          onclick="logoutAdmin()"
+        >
+          خروج
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="admin-box">
+
+      <div class="section-title">
+        📚 مدیریت محتوا
+      </div>
+
+      <div id="adminContent">
+        <div class="loading">
+          در حال دریافت اطلاعات...
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
 
   <div class="footer">
     سیستم آموزش موسیقی
@@ -161,136 +538,306 @@
 
 </div>
 
+
+<!-- =======================================================
+     MODAL
+======================================================== -->
+
+<div
+  id="modal"
+  class="modal hidden"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h3 id="modalTitle">
+        مدیریت
+      </h3>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
 <script>
 
-const API = "https://music-api.dehghaniweb.workers.dev";
+const API =
+  "https://music-api.dehghaniweb.workers.dev";
 
-const statusBox = document.getElementById("status");
-const collectionsBox = document.getElementById("collections");
+let adminKey =
+  sessionStorage.getItem("music_admin_key") || "";
 
 
-// --------------------------------------------------
-// دریافت دسته‌ها
-// --------------------------------------------------
+// ==========================================================
+// STATUS
+// ==========================================================
 
-async function loadCollections() {
+function setStatus(message, error = false) {
 
-  try {
+  const box =
+    document.getElementById("status");
 
-    const response = await fetch(
-      API + "/api/collections"
+  box.textContent = message;
+
+  box.classList.toggle(
+    "error",
+    error
+  );
+}
+
+
+// ==========================================================
+// HTML ESCAPE
+// ==========================================================
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+// ==========================================================
+// API
+// ==========================================================
+
+async function api(
+  path,
+  options = {},
+  authenticated = false
+) {
+
+  const headers =
+    new Headers(
+      options.headers || {}
     );
 
-    if (!response.ok) {
-      throw new Error("خطا در دریافت دسته‌ها");
-    }
+  if (
+    authenticated &&
+    adminKey
+  ) {
 
-    const result = await response.json();
+    headers.set(
+      "Authorization",
+      "Bearer " + adminKey
+    );
+  }
 
-    if (!result.ok) {
-      throw new Error(
-        result.error || "خطا در API"
-      );
-    }
+  const response =
+    await fetch(
+      API + path,
+      {
+        ...options,
+        headers
+      }
+    );
 
-    statusBox.textContent =
-      "✅ اتصال به سرور موفق بود.";
+  let data;
 
-    statusBox.classList.remove("error");
+  try {
+    data =
+      await response.json();
+  } catch {
+    throw new Error(
+      "پاسخ نامعتبر از سرور"
+    );
+  }
 
-    collectionsBox.innerHTML = "";
+  if (!response.ok || data.ok === false) {
 
-    if (!result.data || result.data.length === 0) {
+    throw new Error(
+      data.error ||
+      "خطا در ارتباط با سرور"
+    );
+  }
 
-      collectionsBox.innerHTML =
-        '<div class="empty">هنوز دسته‌ای ثبت نشده است.</div>';
-
-      return;
-    }
-
-
-    // نمایش دسته‌ها
-
-    for (const collection of result.data) {
-
-      const collectionElement =
-        document.createElement("div");
-
-      collectionElement.className =
-        "collection";
-
-      collectionElement.innerHTML = `
-
-        <div class="collection-title">
-          📁 ${escapeHtml(collection.title)}
-        </div>
-
-        <div class="collection-description">
-          ${escapeHtml(collection.description || "")}
-        </div>
-
-        <div class="pieces-title">
-          🎼 قطعات این دسته
-        </div>
-
-        <div
-          id="pieces-${collection.id}"
-          class="pieces"
-        >
-          <div class="loading">
-            در حال دریافت قطعات...
-          </div>
-        </div>
-
-      `;
-
-      collectionsBox.appendChild(
-        collectionElement
-      );
+  return data;
+}
 
 
-      // دریافت قطعات این دسته
+// ==========================================================
+// PAGE SWITCH
+// ==========================================================
 
-      loadPieces(
-        collection.id,
-        collectionElement.querySelector(
-          "#pieces-" + collection.id
-        )
-      );
+function showPublic() {
 
-    }
+  document
+    .getElementById("publicPage")
+    .classList.remove("hidden");
 
-  } catch (error) {
+  document
+    .getElementById("adminLogin")
+    .classList.add("hidden");
 
-    console.error(error);
+  document
+    .getElementById("adminPanel")
+    .classList.add("hidden");
 
-    statusBox.textContent =
-      "❌ اتصال به سرور با خطا مواجه شد.";
+  loadCollections();
+}
 
-    statusBox.classList.add("error");
 
-    collectionsBox.innerHTML = `
+function showAdmin() {
 
-      <div class="empty">
+  document
+    .getElementById("publicPage")
+    .classList.add("hidden");
 
-        ${escapeHtml(error.message)}
+  if (adminKey) {
 
-        <br><br>
+    document
+      .getElementById("adminLogin")
+      .classList.add("hidden");
 
-        لطفاً صفحه را دوباره باز کنید.
+    document
+      .getElementById("adminPanel")
+      .classList.remove("hidden");
 
-      </div>
+    loadAdminData();
 
-    `;
+  } else {
+
+    document
+      .getElementById("adminLogin")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("adminPanel")
+      .classList.add("hidden");
 
   }
 
 }
 
 
-// --------------------------------------------------
-// دریافت قطعات یک دسته
-// --------------------------------------------------
+// ==========================================================
+// PUBLIC: COLLECTIONS
+// ==========================================================
+
+async function loadCollections() {
+
+  const container =
+    document.getElementById(
+      "collections"
+    );
+
+  container.innerHTML =
+    `<div class="loading">
+      ⏳ در حال دریافت دسته‌ها...
+    </div>`;
+
+  try {
+
+    const result =
+      await api(
+        "/api/collections"
+      );
+
+    setStatus(
+      "✅ اتصال به سرور موفق بود."
+    );
+
+    container.innerHTML = "";
+
+    if (
+      !result.data ||
+      result.data.length === 0
+    ) {
+
+      container.innerHTML =
+        `<div class="empty">
+          هنوز دسته‌ای ثبت نشده است.
+        </div>`;
+
+      return;
+    }
+
+
+    for (
+      const collection of result.data
+    ) {
+
+      const box =
+        document.createElement(
+          "div"
+        );
+
+      box.className =
+        "collection";
+
+      box.innerHTML = `
+
+        <div class="collection-title">
+          📁 ${escapeHtml(collection.title)}
+        </div>
+
+        <div class="description">
+          ${escapeHtml(
+            collection.description || ""
+          )}
+        </div>
+
+        <div class="pieces">
+          <div class="small">
+            🎼 قطعات
+          </div>
+
+          <div id="pieces-${collection.id}">
+            <div class="loading">
+              در حال دریافت...
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(box);
+
+      loadPieces(
+        collection.id,
+        box.querySelector(
+          "#pieces-" +
+          collection.id
+        )
+      );
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    setStatus(
+      "❌ " + error.message,
+      true
+    );
+
+    container.innerHTML =
+      `<div class="empty">
+        ❌ ${escapeHtml(error.message)}
+      </div>`;
+  }
+}
+
+
+// ==========================================================
+// PUBLIC: PIECES
+// ==========================================================
 
 async function loadPieces(
   collectionId,
@@ -299,32 +846,14 @@ async function loadPieces(
 
   try {
 
-    const response = await fetch(
-      API +
-      "/api/collections/" +
-      collectionId +
-      "/pieces"
-    );
-
-    if (!response.ok) {
-      throw new Error(
-        "خطا در دریافت قطعات"
-      );
-    }
-
     const result =
-      await response.json();
-
-    if (!result.ok) {
-      throw new Error(
-        result.error ||
-        "خطا در دریافت قطعات"
+      await api(
+        "/api/collections/" +
+        collectionId +
+        "/pieces"
       );
-    }
-
 
     container.innerHTML = "";
-
 
     if (
       !result.data ||
@@ -332,128 +861,1498 @@ async function loadPieces(
     ) {
 
       container.innerHTML =
-        '<div class="empty">هنوز قطعه‌ای ثبت نشده است.</div>';
+        `<div class="empty">
+          هنوز قطعه‌ای ثبت نشده است.
+        </div>`;
 
       return;
     }
 
 
-    // نمایش قطعات
+    for (
+      const piece of result.data
+    ) {
 
-    for (const piece of result.data) {
+      const box =
+        document.createElement(
+          "div"
+        );
 
-      const pieceElement =
-        document.createElement("div");
-
-      pieceElement.className =
+      box.className =
         "piece";
 
-      pieceElement.innerHTML = `
+      box.innerHTML = `
 
-        <div class="piece-title">
-          🎵 ${escapeHtml(piece.title)}
-        </div>
+        <div
+          class="piece-header"
+          onclick="togglePiece(
+            ${piece.id},
+            this
+          )"
+        >
 
-        <div class="piece-description">
-          ${escapeHtml(piece.description || "")}
+          <div class="piece-title">
+            🎵 ${escapeHtml(piece.title)}
+          </div>
+
+          <div class="description">
+            ${escapeHtml(
+              piece.description || ""
+            )}
+          </div>
+
         </div>
 
         <div
-          class="details"
-          id="details-${piece.id}"
+          id="piece-details-${piece.id}"
+          class="piece-details"
         >
           ⏳ در حال دریافت جزئیات...
         </div>
 
       `;
 
-
-      pieceElement.addEventListener(
-        "click",
-        function () {
-
-          loadPieceDetails(
-            piece.id,
-            pieceElement.querySelector(
-              ".details"
-            )
-          );
-
-        }
-      );
-
-
-      container.appendChild(
-        pieceElement
-      );
-
+      container.appendChild(box);
     }
 
   } catch (error) {
 
-    console.error(error);
-
-    container.innerHTML = `
-
-      <div class="empty">
+    container.innerHTML =
+      `<div class="empty">
         ❌ ${escapeHtml(error.message)}
+      </div>`;
+  }
+}
+
+
+// ==========================================================
+// PUBLIC: PIECE DETAILS
+// ==========================================================
+
+async function togglePiece(
+  pieceId,
+  header
+) {
+
+  const details =
+    document.getElementById(
+      "piece-details-" +
+      pieceId
+    );
+
+  if (
+    details.classList.contains("show")
+  ) {
+
+    details.classList.remove("show");
+
+    return;
+  }
+
+  details.classList.add("show");
+
+  try {
+
+    const result =
+      await api(
+        "/api/pieces/" +
+        pieceId
+      );
+
+    const piece =
+      result.data;
+
+    let html = "";
+
+    html += `
+
+      <div>
+        <strong>📝 توضیحات</strong>
+
+        <div class="description">
+          ${escapeHtml(
+            piece.description ||
+            "توضیحی ثبت نشده است."
+          )}
+        </div>
       </div>
 
     `;
 
-  }
 
+    // AUDIO
+
+    html += `
+      <div style="margin-top:18px;">
+        <strong>
+          🎧 فایل‌های صوتی
+        </strong>
+      </div>
+    `;
+
+
+    if (
+      piece.audio_files &&
+      piece.audio_files.length
+    ) {
+
+      for (
+        const audio of
+        piece.audio_files
+      ) {
+
+        const fileUrl =
+          API +
+          "/api/files/audio/" +
+          audio.id;
+
+        if (
+          audio.file_type === "mp3"
+        ) {
+
+          html += `
+
+            <div class="file-card">
+
+              <div class="file-title">
+                🎵 ${escapeHtml(
+                  audio.title
+                )}
+              </div>
+
+              <div class="description">
+                ${escapeHtml(
+                  audio.description || ""
+                )}
+              </div>
+
+              <audio
+                controls
+                preload="none"
+                src="${fileUrl}"
+              ></audio>
+
+            </div>
+
+          `;
+
+        } else {
+
+          html += `
+
+            <div class="file-card">
+
+              <div class="file-title">
+                🎵 ${escapeHtml(
+                  audio.title
+                )}
+              </div>
+
+              <div class="description">
+                ${escapeHtml(
+                  audio.description || ""
+                )}
+              </div>
+
+              <div class="file-buttons">
+
+                <a
+                  class="btn"
+                  href="${fileUrl}"
+                  target="_blank"
+                >
+                  ▶️ باز کردن فایل WAV
+                </a>
+
+                <a
+                  class="btn secondary"
+                  href="${fileUrl}"
+                  download
+                >
+                  ⬇️ دانلود
+                </a>
+
+              </div>
+
+            </div>
+
+          `;
+        }
+      }
+
+    } else {
+
+      html += `
+        <div class="empty">
+          هنوز فایل صوتی ثبت نشده است.
+        </div>
+      `;
+    }
+
+
+    // PDF
+
+    html += `
+      <div style="margin-top:18px;">
+        <strong>
+          📄 فایل‌های PDF
+        </strong>
+      </div>
+    `;
+
+
+    if (
+      piece.documents &&
+      piece.documents.length
+    ) {
+
+      for (
+        const doc of
+        piece.documents
+      ) {
+
+        const fileUrl =
+          API +
+          "/api/files/document/" +
+          doc.id;
+
+        html += `
+
+          <div class="file-card">
+
+            <div class="file-title">
+              📄 ${escapeHtml(
+                doc.title
+              )}
+            </div>
+
+            <div class="description">
+              ${escapeHtml(
+                doc.description || ""
+              )}
+            </div>
+
+            <div class="file-buttons">
+
+              <a
+                class="btn"
+                href="${fileUrl}"
+                target="_blank"
+              >
+                📖 مشاهده PDF
+              </a>
+
+              <a
+                class="btn secondary"
+                href="${fileUrl}"
+                download
+              >
+                ⬇️ دانلود PDF
+              </a>
+
+            </div>
+
+          </div>
+
+        `;
+      }
+
+    } else {
+
+      html += `
+        <div class="empty">
+          هنوز فایل PDF ثبت نشده است.
+        </div>
+      `;
+    }
+
+
+    details.innerHTML = html;
+
+  } catch (error) {
+
+    details.innerHTML =
+      `<div class="empty">
+        ❌ ${escapeHtml(error.message)}
+      </div>`;
+  }
 }
 
 
-// --------------------------------------------------
-// دریافت جزئیات قطعه
-// --------------------------------------------------
+// ==========================================================
+// ADMIN LOGIN
+// ==========================================================
 
-async function loadPieceDetails(
-  pieceId,
-  detailsElement
+async function loginAdmin() {
+
+  const input =
+    document.getElementById(
+      "adminKeyInput"
+    );
+
+  const key =
+    input.value.trim();
+
+  if (!key) {
+
+    setStatus(
+      "❌ کلید مدیریت را وارد کنید.",
+      true
+    );
+
+    return;
+  }
+
+  try {
+
+    const oldKey =
+      adminKey;
+
+    adminKey =
+      key;
+
+    // تست دسترسی
+
+    await api(
+      "/api/collections",
+      {},
+      true
+    );
+
+    sessionStorage.setItem(
+      "music_admin_key",
+      key
+    );
+
+    setStatus(
+      "✅ ورود مدیر موفق بود."
+    );
+
+    document
+      .getElementById(
+        "adminLogin"
+      )
+      .classList.add("hidden");
+
+    document
+      .getElementById(
+        "adminPanel"
+      )
+      .classList.remove("hidden");
+
+    loadAdminData();
+
+  } catch (error) {
+
+    adminKey =
+      "";
+
+    sessionStorage.removeItem(
+      "music_admin_key"
+    );
+
+    setStatus(
+      "❌ کلید مدیریت صحیح نیست یا دسترسی وجود ندارد.",
+      true
+    );
+  }
+}
+
+
+// ==========================================================
+// LOGOUT
+// ==========================================================
+
+function logoutAdmin() {
+
+  adminKey =
+    "";
+
+  sessionStorage.removeItem(
+    "music_admin_key"
+  );
+
+  showPublic();
+
+  setStatus(
+    "از پنل مدیریت خارج شدید."
+  );
+}
+
+
+// ==========================================================
+// ADMIN DATA
+// ==========================================================
+
+async function loadAdminData() {
+
+  const container =
+    document.getElementById(
+      "adminContent"
+    );
+
+  container.innerHTML =
+    `<div class="loading">
+      ⏳ در حال دریافت اطلاعات...
+    </div>`;
+
+  try {
+
+    const result =
+      await api(
+        "/api/collections",
+        {},
+        true
+      );
+
+    container.innerHTML = "";
+
+    if (
+      !result.data ||
+      !result.data.length
+    ) {
+
+      container.innerHTML =
+        `<div class="empty">
+          هنوز دسته‌ای وجود ندارد.
+        </div>`;
+
+      return;
+    }
+
+
+    for (
+      const collection of result.data
+    ) {
+
+      const box =
+        document.createElement(
+          "div"
+        );
+
+      box.className =
+        "admin-item";
+
+      box.innerHTML = `
+
+        <strong>
+          📁 ${escapeHtml(
+            collection.title
+          )}
+        </strong>
+
+        <div class="small">
+          ${escapeHtml(
+            collection.description || ""
+          )}
+        </div>
+
+        <div class="admin-actions">
+
+          <button
+            class="btn warning"
+            onclick='editCollection(
+              ${JSON.stringify(
+                collection
+              )}
+            )'
+          >
+            ✏️ ویرایش
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="deleteCollection(
+              ${collection.id}
+            )"
+          >
+            🗑 حذف
+          </button>
+
+          <button
+            class="btn"
+            onclick="openPieceModal(
+              ${collection.id}
+            )"
+          >
+            ➕ افزودن قطعه
+          </button>
+
+        </div>
+
+        <div
+          id="admin-pieces-${collection.id}"
+          style="margin-top:15px;"
+        >
+          ⏳ قطعات...
+        </div>
+
+      `;
+
+      container.appendChild(box);
+
+      loadAdminPieces(
+        collection.id,
+        box.querySelector(
+          "#admin-pieces-" +
+          collection.id
+        )
+      );
+    }
+
+  } catch (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ❌ ${escapeHtml(error.message)}
+      </div>`;
+  }
+}
+
+
+// ==========================================================
+// ADMIN PIECES
+// ==========================================================
+
+async function loadAdminPieces(
+  collectionId,
+  container
 ) {
 
-  // اگر قبلاً باز شده، ببند
+  try {
+
+    const result =
+      await api(
+        "/api/collections/" +
+        collectionId +
+        "/pieces",
+        {},
+        true
+      );
+
+    container.innerHTML = "";
+
+    if (
+      !result.data ||
+      !result.data.length
+    ) {
+
+      container.innerHTML =
+        `<div class="small">
+          هنوز قطعه‌ای ثبت نشده است.
+        </div>`;
+
+      return;
+    }
+
+
+    for (
+      const piece of result.data
+    ) {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "admin-item";
+
+      div.innerHTML = `
+
+        <strong>
+          🎵 ${escapeHtml(
+            piece.title
+          )}
+        </strong>
+
+        <div class="small">
+          ${escapeHtml(
+            piece.description || ""
+          )}
+        </div>
+
+        <div class="admin-actions">
+
+          <button
+            class="btn warning"
+            onclick='editPiece(
+              ${JSON.stringify(
+                piece
+              )}
+            )'
+          >
+            ✏️ ویرایش
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="deletePiece(
+              ${piece.id}
+            )"
+          >
+            🗑 حذف
+          </button>
+
+          <button
+            class="btn success"
+            onclick="openUploadModal(
+              ${piece.id}
+            )"
+          >
+            📤 افزودن فایل
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="manageFiles(
+              ${piece.id}
+            )"
+          >
+            📂 فایل‌ها
+          </button>
+
+        </div>
+
+      `;
+
+      container.appendChild(div);
+    }
+
+  } catch (error) {
+
+    container.innerHTML =
+      `<div class="small">
+        ❌ ${escapeHtml(error.message)}
+      </div>`;
+  }
+}
+
+
+// ==========================================================
+// COLLECTION MODAL
+// ==========================================================
+
+function openCollectionModal(
+  collection = null
+) {
+
+  const editing =
+    Boolean(collection);
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    editing
+      ? "✏️ ویرایش دسته"
+      : "➕ افزودن دسته";
+
+  document.getElementById(
+    "modalBody"
+  ).innerHTML = `
+
+    <div class="field">
+
+      <label>
+        عنوان دسته
+      </label>
+
+      <input
+        id="collectionTitle"
+        value="${escapeHtml(
+          collection?.title || ""
+        )}"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        توضیحات
+      </label>
+
+      <textarea
+        id="collectionDescription"
+      >${escapeHtml(
+        collection?.description || ""
+      )}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        ترتیب
+      </label>
+
+      <input
+        id="collectionSort"
+        type="number"
+        value="${collection?.sort_order || 0}"
+      >
+
+    </div>
+
+    <button
+      class="btn success"
+      onclick="${
+        editing
+          ? `saveCollection(${collection.id})`
+          : `createCollection()`
+      }"
+    >
+      💾 ذخیره
+    </button>
+
+  `;
+
+  openModal();
+}
+
+
+function editCollection(
+  collection
+) {
+  openCollectionModal(
+    collection
+  );
+}
+
+
+// ==========================================================
+// CREATE COLLECTION
+// ==========================================================
+
+async function createCollection() {
+
+  const title =
+    document.getElementById(
+      "collectionTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "collectionDescription"
+    ).value.trim();
+
+  const sort_order =
+    Number(
+      document.getElementById(
+        "collectionSort"
+      ).value || 0
+    );
+
+  if (!title) {
+
+    alert(
+      "عنوان دسته را وارد کنید."
+    );
+
+    return;
+  }
+
+  try {
+
+    await api(
+      "/api/collections",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          sort_order
+        })
+      },
+      true
+    );
+
+    closeModal();
+
+    setStatus(
+      "✅ دسته با موفقیت ایجاد شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// UPDATE COLLECTION
+// ==========================================================
+
+async function saveCollection(
+  id
+) {
+
+  const title =
+    document.getElementById(
+      "collectionTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "collectionDescription"
+    ).value.trim();
+
+  const sort_order =
+    Number(
+      document.getElementById(
+        "collectionSort"
+      ).value || 0
+    );
+
+  try {
+
+    await api(
+      "/api/admin/collections",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id,
+          title,
+          description,
+          sort_order
+        })
+      },
+      true
+    );
+
+    closeModal();
+
+    setStatus(
+      "✅ دسته ویرایش شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// DELETE COLLECTION
+// ==========================================================
+
+async function deleteCollection(
+  id
+) {
 
   if (
-    detailsElement.classList.contains("show")
+    !confirm(
+      "آیا از حذف این دسته و تمام قطعات آن مطمئن هستید؟"
+    )
   ) {
+    return;
+  }
 
-    detailsElement.classList.remove("show");
+  try {
+
+    await api(
+      "/api/admin/collections",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id
+        })
+      },
+      true
+    );
+
+    setStatus(
+      "✅ دسته حذف شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// PIECE MODAL
+// ==========================================================
+
+async function openPieceModal(
+  collectionId = null,
+  piece = null
+) {
+
+  let collections;
+
+  try {
+
+    const result =
+      await api(
+        "/api/collections",
+        {},
+        true
+      );
+
+    collections =
+      result.data;
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
 
     return;
   }
 
 
-  detailsElement.classList.add("show");
+  const editing =
+    Boolean(piece);
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    editing
+      ? "✏️ ویرایش قطعه"
+      : "➕ افزودن قطعه";
+
+
+  const options =
+    collections
+      .map(c => `
+        <option
+          value="${c.id}"
+          ${
+            Number(
+              piece?.collection_id ??
+              collectionId
+            ) === Number(c.id)
+              ? "selected"
+              : ""
+          }
+        >
+          ${escapeHtml(c.title)}
+        </option>
+      `)
+      .join("");
+
+
+  document.getElementById(
+    "modalBody"
+  ).innerHTML = `
+
+    <div class="field">
+
+      <label>
+        دسته
+      </label>
+
+      <select id="pieceCollection">
+        ${options}
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        عنوان قطعه
+      </label>
+
+      <input
+        id="pieceTitle"
+        value="${escapeHtml(
+          piece?.title || ""
+        )}"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        توضیحات
+      </label>
+
+      <textarea
+        id="pieceDescription"
+      >${escapeHtml(
+        piece?.description || ""
+      )}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        ترتیب
+      </label>
+
+      <input
+        id="pieceSort"
+        type="number"
+        value="${piece?.sort_order || 0}"
+      >
+
+    </div>
+
+    <button
+      class="btn success"
+      onclick="${
+        editing
+          ? `savePiece(${piece.id})`
+          : `createPiece()`
+      }"
+    >
+      💾 ذخیره
+    </button>
+
+  `;
+
+  openModal();
+}
+
+
+function editPiece(
+  piece
+) {
+  openPieceModal(
+    null,
+    piece
+  );
+}
+
+
+// ==========================================================
+// CREATE PIECE
+// ==========================================================
+
+async function createPiece() {
+
+  const collection_id =
+    Number(
+      document.getElementById(
+        "pieceCollection"
+      ).value
+    );
+
+  const title =
+    document.getElementById(
+      "pieceTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "pieceDescription"
+    ).value.trim();
+
+  const sort_order =
+    Number(
+      document.getElementById(
+        "pieceSort"
+      ).value || 0
+    );
+
+
+  if (!title) {
+
+    alert(
+      "عنوان قطعه را وارد کنید."
+    );
+
+    return;
+  }
 
 
   try {
 
-    const response = await fetch(
-      API +
-      "/api/pieces/" +
-      pieceId
+    await api(
+      "/api/pieces",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          collection_id,
+          title,
+          description,
+          sort_order
+        })
+      },
+      true
     );
 
-    if (!response.ok) {
-      throw new Error(
-        "خطا در دریافت جزئیات قطعه"
-      );
-    }
+    closeModal();
+
+    setStatus(
+      "✅ قطعه ایجاد شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// UPDATE PIECE
+// ==========================================================
+
+async function savePiece(
+  id
+) {
+
+  const collection_id =
+    Number(
+      document.getElementById(
+        "pieceCollection"
+      ).value
+    );
+
+  const title =
+    document.getElementById(
+      "pieceTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "pieceDescription"
+    ).value.trim();
+
+  const sort_order =
+    Number(
+      document.getElementById(
+        "pieceSort"
+      ).value || 0
+    );
+
+
+  try {
+
+    await api(
+      "/api/admin/pieces",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id,
+          collection_id,
+          title,
+          description,
+          sort_order
+        })
+      },
+      true
+    );
+
+    closeModal();
+
+    setStatus(
+      "✅ قطعه ویرایش شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// DELETE PIECE
+// ==========================================================
+
+async function deletePiece(
+  id
+) {
+
+  if (
+    !confirm(
+      "آیا از حذف این قطعه و فایل‌های آن مطمئن هستید؟"
+    )
+  ) {
+    return;
+  }
+
+
+  try {
+
+    await api(
+      "/api/admin/pieces",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id
+        })
+      },
+      true
+    );
+
+    setStatus(
+      "✅ قطعه حذف شد."
+    );
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// UPLOAD MODAL
+// ==========================================================
+
+function openUploadModal(
+  pieceId
+) {
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    "📤 افزودن فایل";
+
+
+  document.getElementById(
+    "modalBody"
+  ).innerHTML = `
+
+    <div class="field">
+
+      <label>
+        عنوان فایل
+      </label>
+
+      <input
+        id="uploadTitle"
+        placeholder="مثلاً آموزش شماره ۱"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        توضیحات
+      </label>
+
+      <textarea
+        id="uploadDescription"
+        placeholder="توضیحات مربوط به این فایل..."
+      ></textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        فایل
+      </label>
+
+      <input
+        id="uploadFile"
+        type="file"
+        accept=".mp3,.wav,.pdf,audio/mpeg,audio/wav,application/pdf"
+      >
+
+      <div class="small">
+        فرمت‌های مجاز: MP3، WAV، PDF — حداکثر 20MB
+      </div>
+
+    </div>
+
+    <button
+      class="btn success"
+      onclick="uploadFile(${pieceId})"
+    >
+      📤 آپلود
+    </button>
+
+  `;
+
+  openModal();
+}
+
+
+// ==========================================================
+// UPLOAD
+// ==========================================================
+
+async function uploadFile(
+  pieceId
+) {
+
+  const fileInput =
+    document.getElementById(
+      "uploadFile"
+    );
+
+  const file =
+    fileInput.files[0];
+
+  if (!file) {
+
+    alert(
+      "لطفاً فایل را انتخاب کنید."
+    );
+
+    return;
+  }
+
+
+  if (
+    file.size >
+    20 * 1024 * 1024
+  ) {
+
+    alert(
+      "حجم فایل نباید بیشتر از 20MB باشد."
+    );
+
+    return;
+  }
+
+
+  const title =
+    document.getElementById(
+      "uploadTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "uploadDescription"
+    ).value.trim();
+
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "piece_id",
+    pieceId
+  );
+
+  formData.append(
+    "title",
+    title
+  );
+
+  formData.append(
+    "description",
+    description
+  );
+
+  formData.append(
+    "file",
+    file
+  );
+
+
+  try {
+
+    setStatus(
+      "⏳ فایل در حال آپلود است..."
+    );
+
 
     const result =
-      await response.json();
-
-    if (!result.ok) {
-      throw new Error(
-        result.error ||
-        "خطا در API"
+      await api(
+        "/api/admin/upload",
+        {
+          method: "POST",
+          body: formData
+        },
+        true
       );
-    }
 
+
+    closeModal();
+
+
+    setStatus(
+      "✅ فایل با موفقیت آپلود شد."
+    );
+
+
+    alert(
+      "فایل با موفقیت ذخیره شد."
+    );
+
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      "خطا در آپلود: " +
+      error.message
+    );
+  }
+}
+
+
+// ==========================================================
+// MANAGE FILES
+// ==========================================================
+
+async function manageFiles(
+  pieceId
+) {
+
+  try {
+
+    const result =
+      await api(
+        "/api/pieces/" +
+        pieceId
+      );
 
     const piece =
       result.data;
@@ -461,178 +2360,298 @@ async function loadPieceDetails(
 
     let html = `
 
-      <div>
-
+      <div class="description">
+        مدیریت فایل‌های:
         <strong>
-          📝 توضیحات:
-        </strong>
-
-        <div style="margin-top:6px;">
           ${escapeHtml(
-            piece.description || "توضیحی ثبت نشده است."
+            piece.title
           )}
-        </div>
-
+        </strong>
       </div>
 
     `;
 
 
-    // فایل‌های صوتی
-
     html += `
-
-      <div style="margin-top:15px;">
-
-        <strong>
-          🎧 فایل‌های صوتی:
-        </strong>
-
+      <h4>🎧 فایل‌های صوتی</h4>
     `;
 
 
     if (
       piece.audio_files &&
-      piece.audio_files.length > 0
+      piece.audio_files.length
     ) {
 
       for (
-        const audio of piece.audio_files
+        const audio of
+        piece.audio_files
       ) {
 
         html += `
 
-          <div class="item">
+          <div class="admin-item">
 
-            🎵 ${escapeHtml(audio.title)}
+            <strong>
+              🎵 ${escapeHtml(
+                audio.title
+              )}
+            </strong>
 
-            ${
-              audio.description
-              ? `<div style="margin-top:5px;">
-                  ${escapeHtml(audio.description)}
-                 </div>`
-              : ""
-            }
+            <div class="small">
+              ${escapeHtml(
+                audio.description || ""
+              )}
+            </div>
+
+            <div class="admin-actions">
+
+              <button
+                class="btn danger"
+                onclick="deleteAudio(
+                  ${audio.id},
+                  ${pieceId}
+                )"
+              >
+                🗑 حذف
+              </button>
+
+            </div>
 
           </div>
-
         `;
-
       }
 
     } else {
 
       html += `
-
         <div class="empty">
-          هنوز فایل صوتی ثبت نشده است.
+          فایل صوتی وجود ندارد.
         </div>
-
       `;
-
     }
 
 
-    html += `</div>`;
-
-
-    // فایل‌های PDF
-
     html += `
-
-      <div style="margin-top:15px;">
-
-        <strong>
-          📄 فایل‌های PDF:
-        </strong>
-
+      <h4 style="margin-top:20px;">
+        📄 فایل‌های PDF
+      </h4>
     `;
 
 
     if (
       piece.documents &&
-      piece.documents.length > 0
+      piece.documents.length
     ) {
 
       for (
-        const document of piece.documents
+        const doc of
+        piece.documents
       ) {
 
         html += `
 
-          <div class="item">
+          <div class="admin-item">
 
-            📄 ${escapeHtml(document.title)}
+            <strong>
+              📄 ${escapeHtml(
+                doc.title
+              )}
+            </strong>
 
-            ${
-              document.description
-              ? `<div style="margin-top:5px;">
-                  ${escapeHtml(document.description)}
-                 </div>`
-              : ""
-            }
+            <div class="small">
+              ${escapeHtml(
+                doc.description || ""
+              )}
+            </div>
+
+            <div class="admin-actions">
+
+              <button
+                class="btn"
+                onclick="window.open(
+                  '${API}/api/files/document/${doc.id}',
+                  '_blank'
+                )"
+              >
+                📖 مشاهده
+              </button>
+
+              <button
+                class="btn danger"
+                onclick="deleteDocument(
+                  ${doc.id},
+                  ${pieceId}
+                )"
+              >
+                🗑 حذف
+              </button>
+
+            </div>
 
           </div>
-
         `;
-
       }
 
     } else {
 
       html += `
-
         <div class="empty">
-          هنوز فایل PDF ثبت نشده است.
+          فایل PDF وجود ندارد.
         </div>
-
       `;
-
     }
 
 
-    html += `</div>`;
+    document.getElementById(
+      "modalTitle"
+    ).textContent =
+      "📂 فایل‌های قطعه";
 
 
-    detailsElement.innerHTML =
+    document.getElementById(
+      "modalBody"
+    ).innerHTML =
       html;
+
+
+    openModal();
 
   } catch (error) {
 
-    console.error(error);
+    alert(
+      error.message
+    );
+  }
+}
 
-    detailsElement.innerHTML = `
 
-      <div class="empty">
-        ❌ ${escapeHtml(error.message)}
-      </div>
+// ==========================================================
+// DELETE AUDIO
+// ==========================================================
 
-    `;
+async function deleteAudio(
+  id,
+  pieceId
+) {
 
+  if (
+    !confirm(
+      "آیا فایل صوتی حذف شود؟"
+    )
+  ) {
+    return;
   }
 
+
+  try {
+
+    await api(
+      "/api/admin/audio",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id
+        })
+      },
+      true
+    );
+
+    setStatus(
+      "✅ فایل صوتی حذف شد."
+    );
+
+    closeModal();
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
 }
 
 
-// --------------------------------------------------
-// جلوگیری از ورود HTML خطرناک
-// --------------------------------------------------
+// ==========================================================
+// DELETE DOCUMENT
+// ==========================================================
 
-function escapeHtml(value) {
+async function deleteDocument(
+  id,
+  pieceId
+) {
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  if (
+    !confirm(
+      "آیا فایل PDF حذف شود؟"
+    )
+  ) {
+    return;
+  }
 
+
+  try {
+
+    await api(
+      "/api/admin/document",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          id
+        })
+      },
+      true
+    );
+
+    setStatus(
+      "✅ فایل PDF حذف شد."
+    );
+
+    closeModal();
+
+    loadAdminData();
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
 }
 
 
-// --------------------------------------------------
-// شروع برنامه
-// --------------------------------------------------
+// ==========================================================
+// MODAL
+// ==========================================================
+
+function openModal() {
+
+  document
+    .getElementById("modal")
+    .classList.remove("hidden");
+}
+
+
+function closeModal() {
+
+  document
+    .getElementById("modal")
+    .classList.add("hidden");
+}
+
+
+// ==========================================================
+// INITIAL LOAD
+// ==========================================================
 
 loadCollections();
 
