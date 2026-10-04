@@ -1,307 +1,206 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قطعات آموزشی موسیقی</title>
 
-<title>قطعات آموزشی موسیقی</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-*{
-    box-sizing:border-box;
-}
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
 
-body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#f4f6f8;
-    color:#222;
-}
+    header {
+      background: #202938;
+      color: white;
+      padding: 25px 15px;
+      text-align: center;
+    }
 
-header{
-    background:#202938;
-    color:white;
-    padding:22px 15px;
-    text-align:center;
-}
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
 
-header h1{
-    margin:0;
-    font-size:22px;
-}
+    .container {
+      max-width: 800px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
 
-.container{
-    max-width:900px;
-    margin:25px auto;
-    padding:0 15px;
-}
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
 
-.card{
-    background:white;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #f1f5f9;
+    }
 
-.card h2{
-    margin-top:0;
-    font-size:19px;
-}
+    .collection {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 12px;
+      background: #fafafa;
+    }
 
-.loading{
-    text-align:center;
-    padding:20px;
-    color:#666;
-}
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-.error{
-    background:#fee2e2;
-    color:#991b1b;
-    padding:15px;
-    border-radius:10px;
-}
+    .description {
+      margin-top: 8px;
+      color: #666;
+      line-height: 1.8;
+    }
 
-.collection{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:16px;
-    margin-top:12px;
-}
-
-.collection-title{
-    font-weight:bold;
-    font-size:18px;
-    margin-bottom:12px;
-}
-
-.piece{
-    background:#f8fafc;
-    border-radius:10px;
-    padding:14px;
-    margin-top:10px;
-}
-
-.piece-title{
-    font-weight:bold;
-}
-
-.description{
-    color:#555;
-    margin-top:8px;
-    line-height:1.8;
-}
-
-.badge{
-    display:inline-block;
-    background:#e5e7eb;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:12px;
-    margin-top:10px;
-}
-</style>
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.8;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <h1>🎵 قطعات آموزشی موسیقی</h1>
+  <h1>🎵 قطعات آموزشی موسیقی</h1>
 </header>
 
 <div class="container">
 
-    <div class="card">
-        <h2>📚 دسته‌های آموزشی</h2>
+  <div class="card">
 
-        <div id="collections">
-            <div class="loading">
-                در حال دریافت اطلاعات...
-            </div>
-        </div>
+    <h2>📚 دسته‌های آموزشی</h2>
+
+    <div id="status" class="status">
+      در حال اتصال به سرور...
     </div>
+
+    <div id="collections"></div>
+
+  </div>
 
 </div>
 
 <script>
 
-const API =
-"https://music-api.dehghaniweb.workers.dev";
+const API_URL =
+  "https://music-api.dehghaniweb.workers.dev";
 
-async function loadCollections(){
+async function loadCollections() {
 
-    const container =
-        document.getElementById("collections");
+  const status =
+    document.getElementById("status");
 
-    try{
+  const container =
+    document.getElementById("collections");
 
-        const response =
-            await fetch(API + "/api/collections");
+  try {
 
-        const result =
-            await response.json();
+    const response =
+      await fetch(API_URL + "/api/collections");
 
-        if(!result.ok){
-
-            throw new Error(
-                "دریافت اطلاعات ناموفق بود"
-            );
-
-        }
-
-        container.innerHTML = "";
-
-        if(!result.data || result.data.length === 0){
-
-            container.innerHTML =
-                "<div class='loading'>هنوز دسته‌ای ثبت نشده است.</div>";
-
-            return;
-        }
-
-        for(const collection of result.data){
-
-            const collectionBox =
-                document.createElement("div");
-
-            collectionBox.className =
-                "collection";
-
-            collectionBox.innerHTML = `
-                <div class="collection-title">
-                    📁 ${escapeHtml(collection.title)}
-                </div>
-
-                <div id="pieces-${collection.id}">
-                    <div class="loading">
-                        در حال دریافت قطعات...
-                    </div>
-                </div>
-            `;
-
-            container.appendChild(collectionBox);
-
-            loadPieces(
-                collection.id,
-                document.getElementById(
-                    "pieces-" + collection.id
-                )
-            );
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-        container.innerHTML = `
-            <div class="error">
-                ❌ خطا در ارتباط با سرور
-                <br><br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
+    if (!response.ok) {
+      throw new Error(
+        "HTTP " + response.status
+      );
     }
-}
 
+    const result =
+      await response.json();
 
-async function loadPieces(
-    collectionId,
-    container
-){
+    console.log("API:", result);
 
-    try{
-
-        /*
-         * فعلاً از API قطعه آزمایشی شماره 1
-         * استفاده می‌کنیم.
-         *
-         * در مرحله بعد Worker را طوری
-         * تکمیل می‌کنیم که تمام قطعات
-         * یک دسته را برگرداند.
-         */
-
-        const response =
-            await fetch(
-                API + "/api/pieces/1"
-            );
-
-        const result =
-            await response.json();
-
-        if(
-            !result.ok ||
-            !result.data
-        ){
-
-            container.innerHTML =
-                "<div class='loading'>قطعه‌ای وجود ندارد.</div>";
-
-            return;
-        }
-
-        const piece = result.data;
-
-        /*
-         * فقط اگر قطعه متعلق به همین دسته باشد
-         * نمایش داده می‌شود.
-         */
-
-        if(piece.collection_id !== collectionId){
-
-            container.innerHTML =
-                "<div class='loading'>قطعه‌ای وجود ندارد.</div>";
-
-            return;
-        }
-
-        container.innerHTML = `
-            <div class="piece">
-
-                <div class="piece-title">
-                    🎼 ${escapeHtml(piece.title)}
-                </div>
-
-                <div class="description">
-                    ${escapeHtml(
-                        piece.description || "بدون توضیحات"
-                    )}
-                </div>
-
-                <div class="badge">
-                    🎵 فایل صوتی:
-                    ${piece.audio_files.length}
-                </div>
-
-                <div class="badge">
-                    📄 فایل PDF:
-                    ${piece.documents.length}
-                </div>
-
-            </div>
-        `;
-
-    }catch(error){
-
-        console.error(error);
-
-        container.innerHTML = `
-            <div class="error">
-                خطا در دریافت قطعات
-            </div>
-        `;
+    if (!result.ok) {
+      throw new Error(
+        "API پاسخ موفق برنگرداند."
+      );
     }
-}
 
+    status.innerHTML =
+      "✅ اتصال به سرور موفق بود.";
 
-function escapeHtml(text){
+    if (
+      !result.data ||
+      result.data.length === 0
+    ) {
 
-    const div =
+      container.innerHTML =
+        "<p>هنوز دسته‌ای ثبت نشده است.</p>";
+
+      return;
+    }
+
+    container.innerHTML = "";
+
+    result.data.forEach(function(collection) {
+
+      const box =
         document.createElement("div");
 
-    div.textContent =
-        text ?? "";
+      box.className =
+        "collection";
 
-    return div.innerHTML;
+      box.innerHTML = `
+        <div class="title">
+          📁 ${escapeHtml(collection.title)}
+        </div>
+
+        <div class="description">
+          ${escapeHtml(
+            collection.description || "بدون توضیحات"
+          )}
+        </div>
+      `;
+
+      container.appendChild(box);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.innerHTML =
+      "❌ اتصال به سرور انجام نشد.";
+
+    container.innerHTML = `
+      <div class="error">
+        <strong>خطا:</strong><br>
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+  }
+}
+
+
+function escapeHtml(value) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    value == null ? "" : value;
+
+  return div.innerHTML;
 }
 
 
